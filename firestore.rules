@@ -1,0 +1,224 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Hardened Global Primitives
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null && request.auth.token.email_verified == true;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isBoundedStringList(arr, maxItems) {
+      return arr is list
+        && arr.size() <= maxItems
+        && (arr.size() == 0 || (arr[0] is string && arr[0].size() >= 1 && arr[0].size() <= 120));
+    }
+
+    function isValidPatientProfile(data, userId) {
+      return data.keys().hasAll([
+          'userId',
+          'displayName',
+          'ageUnit',
+          'weightUnit',
+          'allergies',
+          'currentMedications',
+          'createdAt',
+          'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'userId',
+          'displayName',
+          'sex',
+          'ageValue',
+          'ageUnit',
+          'weightValue',
+          'weightUnit',
+          'allergies',
+          'currentMedications',
+          'createdAt',
+          'updatedAt'
+        ])
+        && data.userId is string
+        && isValidId(data.userId)
+        && data.userId == userId
+        && data.userId == request.auth.uid
+        && data.displayName is string
+        && data.displayName.size() <= 100
+        && (!('sex' in data) || data.sex == null || (data.sex is string && data.sex in ['male', 'female']))
+        && (!('ageValue' in data) || data.ageValue == null || (data.ageValue is number && data.ageValue >= 0 && data.ageValue <= 120))
+        && data.ageUnit is string
+        && data.ageUnit in ['years', 'months']
+        && (!('weightValue' in data) || data.weightValue == null || (data.weightValue is number && data.weightValue >= 0.5 && data.weightValue <= 350))
+        && data.weightUnit is string
+        && data.weightUnit in ['kg', 'lbs']
+        && isBoundedStringList(data.allergies, 25)
+        && isBoundedStringList(data.currentMedications, 30)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidDosageRecord(data, userId) {
+      return data.keys().hasAll([
+          'userId',
+          'medicationName',
+          'drugCategory',
+          'ageDisplay',
+          'weightDisplay',
+          'recommendedDose',
+          'frequency',
+          'maxDailyLimit',
+          'duration',
+          'allergyStatus',
+          'verificationStatus',
+          'summaryNotes',
+          'allergiesChecked',
+          'createdAt'
+        ])
+        && data.keys().hasOnly([
+          'userId',
+          'medicationName',
+          'drugCategory',
+          'sexDisplay',
+          'ageDisplay',
+          'weightDisplay',
+          'recommendedDose',
+          'frequency',
+          'maxDailyLimit',
+          'duration',
+          'allergyStatus',
+          'verificationStatus',
+          'summaryNotes',
+          'allergiesChecked',
+          'createdAt'
+        ])
+        && data.userId is string
+        && isValidId(data.userId)
+        && data.userId == userId
+        && data.userId == request.auth.uid
+        && data.medicationName is string && data.medicationName.size() >= 1 && data.medicationName.size() <= 120
+        && data.drugCategory is string && data.drugCategory.size() >= 1 && data.drugCategory.size() <= 60
+        && (!('sexDisplay' in data) || (data.sexDisplay is string && data.sexDisplay.size() <= 20))
+        && data.ageDisplay is string && data.ageDisplay.size() >= 1 && data.ageDisplay.size() <= 40
+        && data.weightDisplay is string && data.weightDisplay.size() >= 1 && data.weightDisplay.size() <= 40
+        && data.recommendedDose is string && data.recommendedDose.size() >= 1 && data.recommendedDose.size() <= 300
+        && data.frequency is string && data.frequency.size() >= 1 && data.frequency.size() <= 200
+        && data.maxDailyLimit is string && data.maxDailyLimit.size() >= 1 && data.maxDailyLimit.size() <= 200
+        && data.duration is string && data.duration.size() <= 200
+        && data.allergyStatus is string && data.allergyStatus in ['clear', 'caution', 'critical']
+        && data.verificationStatus is string && data.verificationStatus in ['verified', 'caution', 'contraindicated']
+        && data.summaryNotes is string && data.summaryNotes.size() <= 2000
+        && isBoundedStringList(data.allergiesChecked, 25)
+        && data.createdAt is timestamp;
+    }
+
+    function isValidInteractionRecord(data, userId) {
+      return data.keys().hasAll([
+          'userId',
+          'medications',
+          'overallSeverity',
+          'summary',
+          'actionGuidance',
+          'createdAt'
+        ])
+        && data.keys().hasOnly([
+          'userId',
+          'medications',
+          'overallSeverity',
+          'summary',
+          'actionGuidance',
+          'createdAt'
+        ])
+        && data.userId is string
+        && isValidId(data.userId)
+        && data.userId == userId
+        && data.userId == request.auth.uid
+        && data.medications is list
+        && data.medications.size() >= 2
+        && data.medications.size() <= 15
+        && data.medications[0] is string && data.medications[0].size() >= 1 && data.medications[0].size() <= 120
+        && data.overallSeverity is string && data.overallSeverity in ['none', 'minor', 'moderate', 'major']
+        && data.summary is string && data.summary.size() >= 1 && data.summary.size() <= 2000
+        && data.actionGuidance is string && data.actionGuidance.size() >= 1 && data.actionGuidance.size() <= 1000
+        && data.createdAt is timestamp;
+    }
+
+    // Private patient profile (strictly isolated under /users/{userId}/private/profile)
+    match /users/{userId}/private/{docId} {
+      allow get: if isOwner(userId) && isValidId(userId) && docId == 'profile';
+      allow list: if false;
+      allow create: if isOwner(userId)
+        && isValidId(userId)
+        && docId == 'profile'
+        && isValidPatientProfile(incoming(), userId)
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      allow update: if isOwner(userId)
+        && isValidId(userId)
+        && docId == 'profile'
+        && isValidPatientProfile(incoming(), userId)
+        && incoming().userId == existing().userId
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && (
+          incoming().diff(existing()).affectedKeys().hasOnly([
+            'displayName',
+            'sex',
+            'ageValue',
+            'ageUnit',
+            'weightValue',
+            'weightUnit',
+            'allergies',
+            'currentMedications',
+            'updatedAt'
+          ])
+        );
+      allow delete: if isOwner(userId) && isValidId(userId) && docId == 'profile';
+    }
+
+    // Saved Dosage Verification Records (immutable once saved; owner can read, list, create, delete)
+    match /users/{userId}/dosageRecords/{recordId} {
+      allow get: if isOwner(userId) && isValidId(userId) && isValidId(recordId);
+      allow list: if isOwner(userId) && isValidId(userId) && resource.data.userId == request.auth.uid;
+      allow create: if isOwner(userId)
+        && isValidId(userId)
+        && isValidId(recordId)
+        && isValidDosageRecord(incoming(), userId)
+        && incoming().createdAt == request.time;
+      allow update: if false;
+      allow delete: if isOwner(userId) && isValidId(userId) && isValidId(recordId);
+    }
+
+    // Saved Drug Interaction Records (immutable once saved; owner can read, list, create, delete)
+    match /users/{userId}/interactionRecords/{recordId} {
+      allow get: if isOwner(userId) && isValidId(userId) && isValidId(recordId);
+      allow list: if isOwner(userId) && isValidId(userId) && resource.data.userId == request.auth.uid;
+      allow create: if isOwner(userId)
+        && isValidId(userId)
+        && isValidId(recordId)
+        && isValidInteractionRecord(incoming(), userId)
+        && incoming().createdAt == request.time;
+      allow update: if false;
+      allow delete: if isOwner(userId) && isValidId(userId) && isValidId(recordId);
+    }
+  }
+}

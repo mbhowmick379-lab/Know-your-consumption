@@ -1,0 +1,230 @@
+{
+  "entities": {
+    "PatientProfile": {
+      "title": "PatientProfile",
+      "description": "Private clinical profile owned exclusively by an authenticated patient.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Authenticated Firebase UID of the patient."
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 100,
+          "description": "Patient display name."
+        },
+        "sex": {
+          "type": "string",
+          "enum": ["male", "female"],
+          "description": "Optional patient biological sex for sex-specific dosing and safety verification."
+        },
+        "ageValue": {
+          "type": "number",
+          "description": "Patient age numeric value (0 to 120)."
+        },
+        "ageUnit": {
+          "type": "string",
+          "enum": ["years", "months"],
+          "description": "Unit for ageValue."
+        },
+        "weightValue": {
+          "type": "number",
+          "description": "Optional patient weight numeric value (0.5 to 350)."
+        },
+        "weightUnit": {
+          "type": "string",
+          "enum": ["kg", "lbs"],
+          "description": "Unit for optional weightValue."
+        },
+        "allergies": {
+          "type": "array",
+          "description": "Bounded list of up to 25 known medication allergies."
+        },
+        "currentMedications": {
+          "type": "array",
+          "description": "Bounded list of up to 30 current active medications."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of initial profile creation."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of latest profile update."
+        }
+      },
+      "required": ["userId", "displayName", "ageUnit", "weightUnit", "allergies", "currentMedications", "createdAt", "updatedAt"]
+    },
+    "DosageRecord": {
+      "title": "DosageRecord",
+      "description": "Saved patient dosage calculation and automated safety verification summary.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Owner Firebase UID."
+        },
+        "medicationName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "description": "Medication or antibiotic queried."
+        },
+        "drugCategory": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60,
+          "description": "Therapeutic class (e.g., Antibiotic, Analgesic)."
+        },
+        "sexDisplay": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 20,
+          "description": "Formatted patient sex evaluated (Male or Female)."
+        },
+        "ageDisplay": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "description": "Formatted age evaluated."
+        },
+        "weightDisplay": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "description": "Formatted optional weight or Not provided."
+        },
+        "recommendedDose": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300,
+          "description": "Recommended single or daily dosage summary."
+        },
+        "frequency": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Dosing schedule frequency."
+        },
+        "maxDailyLimit": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Maximum safe daily dose ceiling."
+        },
+        "duration": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 200,
+          "description": "Typical treatment course duration."
+        },
+        "allergyStatus": {
+          "type": "string",
+          "enum": ["clear", "caution", "critical"],
+          "description": "Allergy screening result."
+        },
+        "verificationStatus": {
+          "type": "string",
+          "enum": ["verified", "caution", "contraindicated"],
+          "description": "Automated safety protocol result."
+        },
+        "summaryNotes": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 2000,
+          "description": "Patient-friendly guidance and key warnings."
+        },
+        "allergiesChecked": {
+          "type": "array",
+          "description": "Bounded list of up to 25 allergies screened."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of record creation."
+        }
+      },
+      "required": [
+        "userId",
+        "medicationName",
+        "drugCategory",
+        "ageDisplay",
+        "weightDisplay",
+        "recommendedDose",
+        "frequency",
+        "maxDailyLimit",
+        "duration",
+        "allergyStatus",
+        "verificationStatus",
+        "summaryNotes",
+        "allergiesChecked",
+        "createdAt"
+      ]
+    },
+    "InteractionRecord": {
+      "title": "InteractionRecord",
+      "description": "Saved drug-to-drug interaction check summary owned by the patient.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Owner Firebase UID."
+        },
+        "medications": {
+          "type": "array",
+          "description": "Bounded list of 2 to 15 medications screened."
+        },
+        "overallSeverity": {
+          "type": "string",
+          "enum": ["none", "minor", "moderate", "major"],
+          "description": "Highest interaction severity detected."
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "description": "Plain-language clinical interaction summary."
+        },
+        "actionGuidance": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000,
+          "description": "Patient action steps."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of record creation."
+        }
+      },
+      "required": ["userId", "medications", "overallSeverity", "summary", "actionGuidance", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/private/{docId}": {
+      "schema": { "$ref": "#/entities/PatientProfile" },
+      "description": "Isolated private patient profile document (docId strictly 'profile')."
+    },
+    "/users/{userId}/dosageRecords/{recordId}": {
+      "schema": { "$ref": "#/entities/DosageRecord" },
+      "description": "Private dosage verification records belonging exclusively to the authenticated patient."
+    },
+    "/users/{userId}/interactionRecords/{recordId}": {
+      "schema": { "$ref": "#/entities/InteractionRecord" },
+      "description": "Private drug-to-drug interaction reports belonging exclusively to the authenticated patient."
+    }
+  }
+}

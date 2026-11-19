@@ -1,0 +1,6 @@
+{
+  "name": "DoseSafe",
+  "description": "Patient-centered medication and antibiotic dosage calculator with age and optional weight stratification, automated clinical safety verification, allergy alerts, drug-to-drug interaction checks, and downloadable patient health records.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
