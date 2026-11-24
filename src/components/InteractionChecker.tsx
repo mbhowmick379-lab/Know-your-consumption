@@ -46,13 +46,13 @@ function severityLabel(severity: InteractionSeverity): string {
 function severityStyles(severity: InteractionSeverity): string {
   switch (severity) {
     case 'major':
-      return 'bg-red-950/60 border-red-500/50 text-red-100';
+      return 'bg-red-50 border-red-200 text-red-900';
     case 'moderate':
-      return 'bg-amber-950/50 border-amber-500/50 text-amber-100';
+      return 'bg-amber-50 border-amber-200 text-amber-900';
     case 'minor':
-      return 'bg-slate-800/80 border-slate-700 text-slate-100';
+      return 'bg-slate-100/80 border-slate-300 text-slate-900';
     default:
-      return 'bg-emerald-950/45 border-emerald-500/40 text-emerald-100';
+      return 'bg-emerald-50 border-emerald-200 text-emerald-900';
   }
 }
 
@@ -192,14 +192,14 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
 
   return (
     <div className="space-y-8">
-      <div className="max-w-2xl space-y-2 pb-6 border-b border-slate-800">
-        <p className="text-xs font-semibold text-rose-400">
+      <div className="max-w-2xl space-y-2 pb-6 border-b border-slate-200">
+        <p className="text-xs font-semibold text-rose-700">
           Know Your Consumption(KYC) · Live Internet-Verified Drug Interactions
         </p>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-50 text-balance">
+        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 text-balance">
           Check how your medications interact together
         </h1>
-        <p className="text-[15px] text-slate-300 leading-relaxed">
+        <p className="text-[15px] text-slate-500 leading-relaxed">
           Enter two or more brand-name or generic antibiotics, daily prescriptions, OTC medicines,
           or mineral supplements to identify harmful combinations, duplicate ingredients, and
           symptoms to watch for.
@@ -210,11 +210,11 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
         {/* Left: Medication List Builder */}
         <section
           aria-label="Medication list for interaction check"
-          className="lg:col-span-5 bg-slate-900/90 border border-slate-800 rounded-2xl p-6 space-y-6"
+          className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 space-y-6"
         >
           <form onSubmit={handleCheckInteractions} className="space-y-5">
             <div className="space-y-2">
-              <label htmlFor="interaction-drug-input" className="block text-sm font-bold text-slate-100">
+              <label htmlFor="interaction-drug-input" className="block text-sm font-bold text-slate-900">
                 Add a Brand or Generic Medication
               </label>
               <div className="flex gap-2">
@@ -230,19 +230,19 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
                     }
                   }}
                   placeholder="e.g., Advil, Coumadin, Augmentin, Lipitor, Metformin"
-                  className="flex-1 px-3.5 py-2.5 text-sm text-slate-100 bg-slate-950 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 placeholder:text-slate-500"
+                  className="flex-1 px-3.5 py-2.5 text-sm text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 placeholder:text-slate-500"
                 />
                 <button
                   type="button"
                   onClick={handleAddMedication}
-                  className="inline-flex items-center gap-1.5 px-4 py-2.5 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors whitespace-nowrap shrink-0"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors whitespace-nowrap shrink-0"
                 >
                   <Plus className="w-4 h-4" aria-hidden="true" />
                   Add
                 </button>
               </div>
               {inputIdentity && (
-                <p className="text-xs text-teal-300 flex items-center gap-1.5">
+                <p className="text-xs text-teal-700 flex items-center gap-1.5">
                   <ArrowRightLeft className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                   <span>
                     {inputIdentity.matchedAs === 'brand'
@@ -262,7 +262,7 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
             {/* Active List */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-slate-300">
+                <span className="text-xs font-semibold text-slate-500">
                   Medications to Screen ({medications.length})
                 </span>
                 {medications.length > 0 && (
@@ -272,7 +272,7 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
                       setMedications([]);
                       setResult(null);
                     }}
-                    className="text-xs text-slate-400 hover:text-slate-100"
+                    className="text-xs text-slate-500 hover:text-slate-900"
                   >
                     Clear list
                   </button>
@@ -280,22 +280,22 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
               </div>
 
               {medications.length === 0 ? (
-                <p className="text-xs text-slate-400 bg-slate-950/60 border border-dashed border-slate-700 rounded-lg p-4 text-center">
+                <p className="text-xs text-slate-500 bg-white border border-dashed border-slate-300 rounded-lg p-4 text-center">
                   Add at least 2 medications above or choose a common example below.
                 </p>
               ) : (
-                <ul className="divide-y divide-slate-800 border border-slate-800 rounded-lg overflow-hidden">
+                <ul className="divide-y divide-slate-200 border border-slate-200 rounded-lg overflow-hidden">
                   {medications.map((med) => {
                     const resolved = resolveDrugIdentity(med);
                     return (
                       <li
                         key={med}
-                        className="px-3.5 py-2.5 bg-slate-950/80 flex items-center justify-between gap-2 text-sm text-slate-100"
+                        className="px-3.5 py-2.5 bg-white flex items-center justify-between gap-2 text-sm text-slate-900"
                       >
                         <div className="min-w-0">
                           <span className="font-semibold block truncate">{med}</span>
                           {resolved && resolved.matchedAs === 'brand' && (
-                            <span className="text-[11px] text-teal-400 block truncate">
+                            <span className="text-[11px] text-teal-700 block truncate">
                               Generic: {resolved.genericName}
                             </span>
                           )}
@@ -304,7 +304,7 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
                           type="button"
                           onClick={() => handleRemoveMedication(med)}
                           aria-label={`Remove ${med}`}
-                          className="p-1 text-slate-400 hover:text-rose-400 rounded shrink-0"
+                          className="p-1 text-slate-500 hover:text-rose-700 rounded shrink-0"
                         >
                           <X className="w-4 h-4" />
                         </button>
@@ -319,7 +319,7 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
               <button
                 type="button"
                 onClick={handleImportProfileMeds}
-                className="w-full py-2 px-3 text-xs font-semibold text-teal-200 bg-teal-950/60 hover:bg-teal-900/60 border border-teal-500/40 rounded-lg transition-colors"
+                className="w-full py-2 px-3 text-xs font-semibold text-teal-800 bg-teal-50 hover:bg-teal-50 border border-teal-200 rounded-lg transition-colors"
               >
                 Import My {profile.currentMedications.length} Active Profile Medications
               </button>
@@ -329,17 +329,17 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
             {instantWarnings.length > 0 && (
               <div
                 role="alert"
-                className="p-3.5 rounded-xl border border-amber-500/45 bg-amber-950/50 text-amber-100 text-xs space-y-1.5"
+                className="p-3.5 rounded-xl border border-amber-200 bg-amber-50 text-amber-900 text-xs space-y-1.5"
               >
                 <div className="flex items-center gap-2 font-bold">
-                  <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" aria-hidden="true" />
+                  <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0" aria-hidden="true" />
                   <span>
                     Instant safety flag: {instantWarnings.length} known interaction(s) detected
                   </span>
                 </div>
                 {instantWarnings.map((w) => (
                   <p key={w.pair.join('-')} className="leading-relaxed">
-                    <span className="font-semibold text-amber-200">
+                    <span className="font-semibold text-amber-800">
                       {w.pair[0]} + {w.pair[1]} ({w.severity.toUpperCase()}):
                     </span>{' '}
                     {w.summary}
@@ -351,7 +351,7 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
             <button
               type="submit"
               disabled={loading || medications.length < 2}
-              className="w-full py-3.5 px-5 text-sm font-bold text-white bg-gradient-to-r from-orange-500 via-rose-600 to-pink-600 hover:from-orange-400 hover:via-rose-500 hover:to-pink-500 rounded-xl shadow-xs transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 disabled:opacity-50"
+              className="w-full py-3.5 px-5 text-sm font-bold text-white bg-gradient-to-r from-orange-500 via-rose-600 to-rose-600 hover:from-orange-400 hover:via-rose-500 hover:to-rose-500 rounded-xl shadow-xs transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:opacity-50"
             >
               {loading
                 ? 'Verifying Live FDA Labels & Drug Interactions...'
@@ -360,8 +360,8 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
           </form>
 
           {/* Common Patient Example Combinations */}
-          <div className="pt-4 border-t border-slate-800 space-y-2.5">
-            <p className="text-xs font-bold text-slate-300">Common Patient Combinations</p>
+          <div className="pt-4 border-t border-slate-200 space-y-2.5">
+            <p className="text-xs font-bold text-slate-500">Common Patient Combinations</p>
             <div className="flex flex-wrap gap-1.5">
               {EXAMPLE_INTERACTION_SETS.map((ex) => (
                 <button
@@ -372,7 +372,7 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
                     setErrorMsg(null);
                     setResult(null);
                   }}
-                  className="px-2.5 py-1.5 text-xs font-semibold text-rose-200 bg-rose-950/60 hover:bg-rose-900/70 border border-rose-500/40 rounded-lg transition-colors"
+                  className="px-2.5 py-1.5 text-xs font-semibold text-rose-800 bg-rose-50 hover:bg-rose-50 border border-rose-200 rounded-lg transition-colors"
                 >
                   {ex.label}
                 </button>
@@ -386,52 +386,52 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
           {errorMsg && (
             <div
               role="alert"
-              className="bg-red-950/60 border border-red-500/40 rounded-xl p-5 flex items-start gap-3 text-red-100"
+              className="bg-red-50 border border-red-200 rounded-xl p-5 flex items-start gap-3 text-red-900"
             >
-              <AlertTriangle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" aria-hidden="true" />
+              <AlertTriangle className="w-5 h-5 text-red-700 shrink-0 mt-0.5" aria-hidden="true" />
               <div className="space-y-1">
                 <h2 className="text-sm font-semibold">Interaction check notice</h2>
-                <p className="text-sm text-red-200">{errorMsg}</p>
+                <p className="text-sm text-red-800">{errorMsg}</p>
               </div>
             </div>
           )}
 
           {loading && (
-            <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 space-y-5 animate-pulse">
-              <div className="h-6 w-56 bg-slate-800 rounded" />
-              <div className="h-20 bg-slate-800/80 rounded-lg" />
-              <div className="h-32 bg-slate-800/80 rounded-lg" />
-              <div className="h-32 bg-slate-800/80 rounded-lg" />
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-5 animate-pulse">
+              <div className="h-6 w-56 bg-slate-100 rounded" />
+              <div className="h-20 bg-slate-100/80 rounded-lg" />
+              <div className="h-32 bg-slate-100/80 rounded-lg" />
+              <div className="h-32 bg-slate-100/80 rounded-lg" />
             </div>
           )}
 
           {!loading && !result && (
-            <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-8 space-y-5">
-              <h2 className="text-lg font-bold text-slate-50">
+            <div className="bg-white border border-slate-200 rounded-2xl p-8 space-y-5">
+              <h2 className="text-lg font-bold text-slate-900">
                 Why screening drug reactions protects you
               </h2>
-              <p className="text-sm text-slate-300 leading-relaxed">
+              <p className="text-sm text-slate-500 leading-relaxed">
                 Antibiotics frequently interact with blood thinners, cholesterol statins, blood
                 pressure medicines, and everyday mineral supplements like calcium or iron. Enter
                 either brand names (like Advil, Coumadin, Augmentin) or generic names to see a
                 plain-language breakdown of every pair.
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-3 border-t border-slate-800 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-3 border-t border-slate-200 text-xs">
                 <div className="space-y-1">
-                  <p className="font-bold text-rose-400">Major</p>
-                  <p className="text-slate-300 leading-relaxed">
+                  <p className="font-bold text-rose-700">Major</p>
+                  <p className="text-slate-500 leading-relaxed">
                     High risk of serious harm; avoid combining unless closely managed by your doctor.
                   </p>
                 </div>
                 <div className="space-y-1">
-                  <p className="font-bold text-amber-400">Moderate</p>
-                  <p className="text-slate-300 leading-relaxed">
+                  <p className="font-bold text-amber-700">Moderate</p>
+                  <p className="text-slate-500 leading-relaxed">
                     May require dose spacing, lab monitoring, or choosing a safer alternative.
                   </p>
                 </div>
                 <div className="space-y-1">
-                  <p className="font-bold text-emerald-400">Minor / Clear</p>
-                  <p className="text-slate-300 leading-relaxed">
+                  <p className="font-bold text-emerald-700">Minor / Clear</p>
+                  <p className="text-slate-500 leading-relaxed">
                     Minimal clinical impact; follow standard prescription label instructions.
                   </p>
                 </div>
@@ -440,19 +440,19 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
           )}
 
           {!loading && result && (
-            <article className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-7 space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-5 border-b border-slate-800">
+            <article className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-7 space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-5 border-b border-slate-200">
                 <div className="space-y-1.5">
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-slate-500">
                     Screened {result.medications.length} Medications ·{' '}
                     {new Date(result.generatedAt).toLocaleDateString()}
                   </p>
-                  <h2 className="text-xl font-bold text-slate-50">
+                  <h2 className="text-xl font-bold text-slate-900">
                     {result.medications.join(' + ')}
                   </h2>
                   {result.resolvedMedications && result.resolvedMedications.length > 0 && (
-                    <p className="text-xs text-slate-400">
-                      <span className="text-slate-300 font-semibold">Resolved active generics: </span>
+                    <p className="text-xs text-slate-500">
+                      <span className="text-slate-500 font-semibold">Resolved active generics: </span>
                       {result.resolvedMedications
                         .map((m) => `${m.inputName} (${m.genericName})`)
                         .join(' · ')}
@@ -466,7 +466,7 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
                     disabled={saving || saved}
                     className={`inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap ${
                       saved
-                        ? 'bg-emerald-950/80 border border-emerald-500/50 text-emerald-200'
+                        ? 'bg-emerald-50 border border-emerald-200 text-emerald-800'
                         : 'bg-emerald-600 hover:bg-emerald-500 text-white'
                     }`}
                   >
@@ -500,11 +500,11 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
               >
                 <div className="flex items-center gap-2.5">
                   {result.overallSeverity === 'major' ? (
-                    <ShieldAlert className="w-5 h-5 text-red-400 shrink-0" aria-hidden="true" />
+                    <ShieldAlert className="w-5 h-5 text-red-700 shrink-0" aria-hidden="true" />
                   ) : result.overallSeverity === 'moderate' ? (
-                    <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0" aria-hidden="true" />
+                    <AlertTriangle className="w-5 h-5 text-amber-700 shrink-0" aria-hidden="true" />
                   ) : (
-                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" aria-hidden="true" />
+                    <CheckCircle2 className="w-5 h-5 text-emerald-700 shrink-0" aria-hidden="true" />
                   )}
                   <h3 className="text-sm font-bold">{severityLabel(result.overallSeverity)}</h3>
                 </div>
@@ -513,45 +513,45 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
 
               {/* Pair-by-Pair Breakdown */}
               <div className="space-y-3">
-                <h3 className="text-sm font-bold text-slate-100">Pair-by-Pair Details</h3>
+                <h3 className="text-sm font-bold text-slate-900">Pair-by-Pair Details</h3>
                 {result.pairs.length === 0 ? (
-                  <p className="text-sm text-slate-300">
+                  <p className="text-sm text-slate-500">
                     No significant pairwise interactions were identified among these medications.
                   </p>
                 ) : (
-                  <div className="divide-y divide-slate-800 border border-slate-800 rounded-xl overflow-hidden">
+                  <div className="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden">
                     {result.pairs.map((pair, idx) => (
-                      <div key={`${pair.drugA}-${pair.drugB}-${idx}`} className="p-4 sm:p-5 bg-slate-950/75 space-y-2.5">
+                      <div key={`${pair.drugA}-${pair.drugB}-${idx}`} className="p-4 sm:p-5 bg-white space-y-2.5">
                         <div className="flex flex-wrap items-center justify-between gap-2">
-                          <h4 className="text-sm font-bold text-slate-100">
+                          <h4 className="text-sm font-bold text-slate-900">
                             {pair.drugA} + {pair.drugB}
                           </h4>
                           <span
                             className={`text-xs font-bold uppercase tracking-wide ${
                               pair.severity === 'major'
-                                ? 'text-red-400'
+                                ? 'text-red-700'
                                 : pair.severity === 'moderate'
-                                  ? 'text-amber-400'
+                                  ? 'text-amber-700'
                                   : pair.severity === 'minor'
-                                    ? 'text-slate-300'
-                                    : 'text-emerald-400'
+                                    ? 'text-slate-500'
+                                    : 'text-emerald-700'
                             }`}
                           >
                             Severity: {pair.severity}
                           </span>
                         </div>
-                        <p className="text-xs font-semibold text-slate-200">{pair.headline}</p>
-                        <p className="text-sm text-slate-300 leading-relaxed">
+                        <p className="text-xs font-semibold text-slate-700">{pair.headline}</p>
+                        <p className="text-sm text-slate-500 leading-relaxed">
                           {pair.plainLanguageExplanation}
                         </p>
                         {pair.symptomsToWatch.length > 0 && (
-                          <p className="text-xs text-slate-300">
-                            <span className="font-semibold text-slate-100">Watch for: </span>
+                          <p className="text-xs text-slate-500">
+                            <span className="font-semibold text-slate-900">Watch for: </span>
                             {pair.symptomsToWatch.join(', ')}
                           </p>
                         )}
-                        <p className="text-xs text-teal-100 bg-teal-950/50 border border-teal-500/35 rounded-lg px-3.5 py-2.5">
-                          <span className="font-semibold text-teal-300">What to do: </span>
+                        <p className="text-xs text-teal-900 bg-teal-50 border border-teal-200 rounded-lg px-3.5 py-2.5">
+                          <span className="font-semibold text-teal-700">What to do: </span>
                           {pair.managementGuidance}
                         </p>
                       </div>
@@ -561,36 +561,36 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
               </div>
 
               {/* Food / Alcohol & Next Steps */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-3 border-t border-slate-800">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-3 border-t border-slate-200">
                 <div className="space-y-2">
-                  <h3 className="text-sm font-bold text-slate-100">Food, Drink &amp; Alcohol Notes</h3>
-                  <ul className="space-y-1.5 text-xs text-slate-300 leading-relaxed list-disc pl-4">
+                  <h3 className="text-sm font-bold text-slate-900">Food, Drink &amp; Alcohol Notes</h3>
+                  <ul className="space-y-1.5 text-xs text-slate-500 leading-relaxed list-disc pl-4">
                     {result.foodAndAlcoholNotes.map((note, idx) => (
                       <li key={idx}>{note}</li>
                     ))}
                   </ul>
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-sm font-bold text-slate-100">Recommended Next Steps</h3>
-                  <p className="text-xs text-slate-300 leading-relaxed">{result.actionGuidance}</p>
+                  <h3 className="text-sm font-bold text-slate-900">Recommended Next Steps</h3>
+                  <p className="text-xs text-slate-500 leading-relaxed">{result.actionGuidance}</p>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-800 space-y-3 text-xs text-slate-400">
+              <div className="pt-4 border-t border-slate-200 space-y-3 text-xs text-slate-500">
                 {result.verifiedSources && result.verifiedSources.length > 0 && (
-                  <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2.5">
+                  <div className="p-4 rounded-xl bg-white border border-slate-200 space-y-2.5">
                     <div className="flex flex-wrap items-center justify-between gap-2">
-                      <div className="flex items-center gap-1.5 font-bold text-teal-300">
+                      <div className="flex items-center gap-1.5 font-bold text-teal-700">
                         <Globe className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                         <span>Live Internet-Verified Interaction Sources</span>
                       </div>
                       {result.liveEvidenceUsed && (
-                        <div className="flex flex-wrap items-center gap-2 text-[11px] font-medium text-slate-300">
+                        <div className="flex flex-wrap items-center gap-2 text-[11px] font-medium text-slate-500">
                           {result.liveEvidenceUsed.fdaLabelFound && (
-                            <span className="text-emerald-300">U.S. FDA OpenFDA</span>
+                            <span className="text-emerald-700">U.S. FDA OpenFDA</span>
                           )}
                           {result.liveEvidenceUsed.googleSearchUsed && (
-                            <span className="text-violet-300">Live Web Grounding</span>
+                            <span className="text-sky-700">Live Web Grounding</span>
                           )}
                         </div>
                       )}
@@ -601,10 +601,10 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
                           <span
                             className={`text-[10px] font-bold uppercase tracking-wide shrink-0 ${
                               src.sourceType === 'fda'
-                                ? 'text-emerald-400'
+                                ? 'text-emerald-700'
                                 : src.sourceType === 'nih'
-                                  ? 'text-sky-400'
-                                  : 'text-violet-400'
+                                  ? 'text-sky-700'
+                                  : 'text-sky-700'
                             }`}
                           >
                             {src.sourceType === 'fda'
@@ -617,7 +617,7 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
                             href={src.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-slate-200 hover:text-teal-300 underline decoration-slate-600 underline-offset-2 truncate"
+                            className="inline-flex items-center gap-1 text-slate-700 hover:text-teal-700 underline decoration-slate-600 underline-offset-2 truncate"
                           >
                             <span className="truncate">{src.title}</span>
                             <ExternalLink className="w-3 h-3 shrink-0 opacity-75" aria-hidden="true" />
@@ -629,7 +629,7 @@ export function InteractionChecker({ prefillDrugs }: InteractionCheckerProps) {
                 )}
 
                 <div>
-                  <span className="font-medium text-slate-200">References: </span>
+                  <span className="font-medium text-slate-700">References: </span>
                   {result.clinicalReferences.join(' · ')}
                 </div>
               </div>

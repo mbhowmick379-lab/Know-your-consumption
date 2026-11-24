@@ -148,15 +148,15 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
   return (
     <div className="space-y-8">
       {/* Header & Account Security Status */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-slate-800">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-slate-200">
         <div className="max-w-2xl space-y-2">
-          <p className="text-xs font-semibold text-sky-400">
+          <p className="text-xs font-semibold text-sky-700">
             Know Your Consumption(KYC) Personal Health Records · Private &amp; Downloadable
           </p>
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-50 text-balance">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 text-balance">
             Your private medication profile and continuity records
           </h1>
-          <p className="text-[15px] text-slate-300 leading-relaxed">
+          <p className="text-[15px] text-slate-500 leading-relaxed">
             Store your allergies, active medications, and verified dosage checks in one secure
             location. Download a portable record anytime to share with your doctor or pharmacist.
           </p>
@@ -165,37 +165,37 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
         <button
           type="button"
           onClick={() => void loadSamplePatientData()}
-          className="self-start md:self-auto px-4 py-2 text-xs font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 rounded-lg shadow-xs transition-all whitespace-nowrap shrink-0"
+          className="self-start md:self-auto px-4 py-2 text-xs font-semibold text-white bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 rounded-lg shadow-xs transition-all whitespace-nowrap shrink-0"
         >
           Fill Sample Patient Profile
         </button>
       </div>
 
       {/* Login / Private Isolation Banner */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-start gap-3">
-          <Lock className="w-5 h-5 text-teal-400 shrink-0 mt-0.5" aria-hidden="true" />
+          <Lock className="w-5 h-5 text-teal-700 shrink-0 mt-0.5" aria-hidden="true" />
           <div className="space-y-0.5">
             {user ? (
               <>
-                <h2 className="text-sm font-semibold text-slate-100">
+                <h2 className="text-sm font-semibold text-slate-900">
                   Signed in as {user.displayName || user.email}
                 </h2>
-                <p className="text-xs text-slate-300">
+                <p className="text-xs text-slate-500">
                   Your health profile, allergies, and history are strictly isolated under your private
                   patient account and synced across sessions.
                 </p>
               </>
             ) : (
               <>
-                <h2 className="text-sm font-semibold text-slate-100">
+                <h2 className="text-sm font-semibold text-slate-900">
                   Local session active — Sign in for private cloud sync
                 </h2>
-                <p className="text-xs text-slate-300">
+                <p className="text-xs text-slate-500">
                   Your profile and saved checks are currently kept in this browser only. Sign in with
                   your Google account to securely sync and protect your health records across devices.
                 </p>
-                {authError && <p className="text-xs font-medium text-rose-400 pt-1">{authError}</p>}
+                {authError && <p className="text-xs font-medium text-rose-700 pt-1">{authError}</p>}
               </>
             )}
           </div>
@@ -217,14 +217,14 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
       {/* Secure Health Record Export Hub */}
       <section
         aria-label="Secure health record downloads"
-        className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 space-y-4"
+        className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1">
-            <h2 className="text-base font-bold text-slate-100">
+            <h2 className="text-base font-bold text-slate-900">
               Download Your Complete Health Record
             </h2>
-            <p className="text-xs text-slate-300">
+            <p className="text-xs text-slate-500">
               Includes your profile, documented allergies ({profile.allergies.length}), active
               medications ({profile.currentMedications.length}), dosage summaries (
               {dosageRecords.length}), and interaction reports ({interactionRecords.length}).
@@ -234,7 +234,7 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
             <button
               type="button"
               onClick={onPrintFullRecord}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors whitespace-nowrap"
             >
               <Printer className="w-3.5 h-3.5" aria-hidden="true" />
               Print / Save PDF
@@ -259,7 +259,7 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
         </div>
 
         {lastChecksum && (
-          <div className="pt-3 border-t border-slate-800 flex items-center gap-2 text-xs text-emerald-300">
+          <div className="pt-3 border-t border-slate-200 flex items-center gap-2 text-xs text-emerald-700">
             <CheckCircle2 className="w-4 h-4 shrink-0" aria-hidden="true" />
             <span className="truncate">
               Export downloaded · SHA-256 Integrity Checksum:{' '}
@@ -274,13 +274,13 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
         {/* Left: Patient Clinical Profile */}
         <section
           aria-label="Patient profile settings"
-          className="lg:col-span-5 bg-slate-900/90 border border-slate-800 rounded-2xl p-6 space-y-5"
+          className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 space-y-5"
         >
-          <h2 className="text-base font-bold text-slate-100">Patient Clinical Profile</h2>
+          <h2 className="text-base font-bold text-slate-900">Patient Clinical Profile</h2>
 
           <form onSubmit={handleSaveProfile} className="space-y-4">
             <div className="space-y-1.5">
-              <label htmlFor="profile-name" className="block text-xs font-semibold text-slate-300">
+              <label htmlFor="profile-name" className="block text-xs font-semibold text-slate-500">
                 Patient Name (For Summary Exports)
               </label>
               <input
@@ -289,12 +289,12 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
                 placeholder="e.g., Jordan Patel"
-                className="w-full px-3.5 py-2 text-sm text-slate-100 bg-slate-950 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 placeholder:text-slate-500"
+                className="w-full px-3.5 py-2 text-sm text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 placeholder:text-slate-500"
               />
             </div>
 
             <div className="space-y-1.5">
-              <span className="block text-xs font-semibold text-slate-300">Patient Sex</span>
+              <span className="block text-xs font-semibold text-slate-500">Patient Sex</span>
               <div className="grid grid-cols-2 gap-2" role="group" aria-label="Default patient sex">
                 <button
                   type="button"
@@ -302,8 +302,8 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
                   aria-pressed={sex === 'male'}
                   className={`py-2 px-3 text-xs font-bold rounded-lg border transition-colors ${
                     sex === 'male'
-                      ? 'bg-sky-600 border-sky-400 text-white'
-                      : 'bg-slate-950 border-slate-700 text-slate-300 hover:border-sky-500/60'
+                      ? 'bg-sky-600 border-sky-300 text-slate-900'
+                      : 'bg-white border-slate-300 text-slate-500 hover:border-sky-200'
                   }`}
                 >
                   Male
@@ -314,8 +314,8 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
                   aria-pressed={sex === 'female'}
                   className={`py-2 px-3 text-xs font-bold rounded-lg border transition-colors ${
                     sex === 'female'
-                      ? 'bg-fuchsia-600 border-fuchsia-400 text-white'
-                      : 'bg-slate-950 border-slate-700 text-slate-300 hover:border-fuchsia-500/60'
+                      ? 'bg-teal-600 border-teal-300 text-slate-900'
+                      : 'bg-white border-slate-300 text-slate-500 hover:border-teal-200'
                   }`}
                 >
                   Female
@@ -325,7 +325,7 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <label htmlFor="profile-age" className="block text-xs font-semibold text-slate-300">
+                <label htmlFor="profile-age" className="block text-xs font-semibold text-slate-500">
                   Default Age
                 </label>
                 <div className="flex gap-1">
@@ -338,13 +338,13 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
                     value={ageInput}
                     onChange={(e) => setAgeInput(e.target.value)}
                     placeholder="Age"
-                    className="w-full px-2.5 py-2 text-sm font-mono tabular-nums text-slate-100 bg-slate-950 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="w-full px-2.5 py-2 text-sm font-mono tabular-nums text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
                   <select
                     aria-label="Default age unit"
                     value={ageUnit}
                     onChange={(e) => setAgeUnit(e.target.value as AgeUnit)}
-                    className="px-2 py-2 text-xs text-slate-100 bg-slate-950 border border-slate-700 rounded-lg"
+                    className="px-2 py-2 text-xs text-slate-900 bg-white border border-slate-300 rounded-lg"
                   >
                     <option value="years">Yrs</option>
                     <option value="months">Mos</option>
@@ -353,7 +353,7 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
               </div>
 
               <div className="space-y-1.5">
-                <label htmlFor="profile-weight" className="block text-xs font-semibold text-slate-300">
+                <label htmlFor="profile-weight" className="block text-xs font-semibold text-slate-500">
                   Weight (Optional)
                 </label>
                 <div className="flex gap-1">
@@ -366,13 +366,13 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
                     value={weightInput}
                     onChange={(e) => setWeightInput(e.target.value)}
                     placeholder="Optional"
-                    className="w-full px-2.5 py-2 text-sm font-mono tabular-nums text-slate-100 bg-slate-950 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="w-full px-2.5 py-2 text-sm font-mono tabular-nums text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
                   <select
                     aria-label="Default weight unit"
                     value={weightUnit}
                     onChange={(e) => setWeightUnit(e.target.value as WeightUnit)}
-                    className="px-2 py-2 text-xs text-slate-100 bg-slate-950 border border-slate-700 rounded-lg"
+                    className="px-2 py-2 text-xs text-slate-900 bg-white border border-slate-300 rounded-lg"
                   >
                     <option value="kg">kg</option>
                     <option value="lbs">lbs</option>
@@ -382,8 +382,8 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
             </div>
 
             {/* Allergies Manager */}
-            <div className="space-y-2 pt-2 border-t border-slate-800">
-              <span className="block text-xs font-semibold text-slate-300">
+            <div className="space-y-2 pt-2 border-t border-slate-200">
+              <span className="block text-xs font-semibold text-slate-500">
                 Documented Allergies ({allergies.length})
               </span>
               <div className="flex gap-1.5">
@@ -399,7 +399,7 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
                   }}
                   aria-label="Add documented allergy"
                   placeholder="e.g., Penicillin, Sulfa"
-                  className="flex-1 px-3 py-2 text-xs text-slate-100 bg-slate-950 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 placeholder:text-slate-500"
+                  className="flex-1 px-3 py-2 text-xs text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 placeholder:text-slate-500"
                 />
                 <button
                   type="button"
@@ -426,8 +426,8 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
                       }
                       className={`px-2 py-1 text-[11px] rounded border transition-colors ${
                         has
-                          ? 'bg-rose-950/70 border-rose-500/60 text-rose-200 font-semibold'
-                          : 'bg-slate-950/70 border-slate-800 text-slate-300 hover:border-slate-600'
+                          ? 'bg-rose-50 border-rose-200 text-rose-800 font-semibold'
+                          : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300'
                       }`}
                     >
                       {has ? `✓ ${item}` : `+ ${item}`}
@@ -436,18 +436,18 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
                 })}
               </div>
               {allergies.length > 0 && (
-                <ul className="divide-y divide-slate-800 border border-slate-800 rounded-lg overflow-hidden">
+                <ul className="divide-y divide-slate-200 border border-slate-200 rounded-lg overflow-hidden">
                   {allergies.map((a) => (
                     <li
                       key={a}
-                      className="px-3 py-2 text-xs flex items-center justify-between text-slate-200 bg-slate-950/75"
+                      className="px-3 py-2 text-xs flex items-center justify-between text-slate-700 bg-white"
                     >
                       <span>{a}</span>
                       <button
                         type="button"
                         onClick={() => setAllergies((prev) => prev.filter((x) => x !== a))}
                         aria-label={`Remove allergy ${a}`}
-                        className="text-slate-400 hover:text-rose-400 p-0.5"
+                        className="text-slate-500 hover:text-rose-700 p-0.5"
                       >
                         <X className="w-3.5 h-3.5" />
                       </button>
@@ -458,8 +458,8 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
             </div>
 
             {/* Active Current Medications Manager */}
-            <div className="space-y-2 pt-2 border-t border-slate-800">
-              <span className="block text-xs font-semibold text-slate-300">
+            <div className="space-y-2 pt-2 border-t border-slate-200">
+              <span className="block text-xs font-semibold text-slate-500">
                 Current Active Medications ({currentMeds.length})
               </span>
               <div className="flex gap-1.5">
@@ -475,30 +475,30 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
                   }}
                   aria-label="Add active current medication"
                   placeholder="e.g., Lisinopril, Warfarin, Lipitor, Metformin"
-                  className="flex-1 px-3 py-2 text-xs text-slate-100 bg-slate-950 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 placeholder:text-slate-500"
+                  className="flex-1 px-3 py-2 text-xs text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 placeholder:text-slate-500"
                 />
                 <button
                   type="button"
                   onClick={addCurrentMed}
-                  className="inline-flex items-center gap-1 px-3 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg whitespace-nowrap"
+                  className="inline-flex items-center gap-1 px-3 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-lg whitespace-nowrap"
                 >
                   <Plus className="w-3.5 h-3.5" aria-hidden="true" />
                   Add
                 </button>
               </div>
               {currentMeds.length > 0 && (
-                <ul className="divide-y divide-slate-800 border border-slate-800 rounded-lg overflow-hidden">
+                <ul className="divide-y divide-slate-200 border border-slate-200 rounded-lg overflow-hidden">
                   {currentMeds.map((m) => (
                     <li
                       key={m}
-                      className="px-3 py-2 text-xs flex items-center justify-between text-slate-200 bg-slate-950/75"
+                      className="px-3 py-2 text-xs flex items-center justify-between text-slate-700 bg-white"
                     >
                       <span>{m}</span>
                       <button
                         type="button"
                         onClick={() => setCurrentMeds((prev) => prev.filter((x) => x !== m))}
                         aria-label={`Remove current medication ${m}`}
-                        className="text-slate-400 hover:text-rose-400 p-0.5"
+                        className="text-slate-500 hover:text-rose-700 p-0.5"
                       >
                         <X className="w-3.5 h-3.5" />
                       </button>
@@ -517,7 +517,7 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
                 {profileSaving ? 'Saving Profile...' : 'Save Patient Profile'}
               </button>
               {profileSavedToast && (
-                <span role="status" className="text-xs font-semibold text-emerald-400">
+                <span role="status" className="text-xs font-semibold text-emerald-700">
                   Profile updated
                 </span>
               )}
@@ -528,11 +528,11 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
         {/* Right: Saved Dosage & Interaction History */}
         <section
           aria-label="Saved clinical records history"
-          className="lg:col-span-7 bg-slate-900/90 border border-slate-800 rounded-2xl p-6 space-y-5"
+          className="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-6 space-y-5"
         >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <h2 className="text-base font-bold text-slate-100">Saved Clinical History</h2>
-            <div className="flex items-center gap-1 p-1 bg-slate-950 border border-slate-800 rounded-lg self-start">
+            <h2 className="text-base font-bold text-slate-900">Saved Clinical History</h2>
+            <div className="flex items-center gap-1 p-1 bg-white border border-slate-200 rounded-lg self-start">
               {(
                 [
                   { id: 'all', label: `All (${dosageRecords.length + interactionRecords.length})` },
@@ -546,8 +546,8 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
                   onClick={() => setHistoryFilter(tab.id)}
                   className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors whitespace-nowrap ${
                     historyFilter === tab.id
-                      ? 'bg-sky-600 text-white shadow-xs'
-                      : 'text-slate-400 hover:text-slate-100'
+                      ? 'bg-sky-600 text-slate-900 shadow-xs'
+                      : 'text-slate-500 hover:text-slate-900'
                   }`}
                 >
                   {tab.label}
@@ -567,15 +567,15 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
               onChange={(e) => setSearchTerm(e.target.value)}
               aria-label="Search saved records"
               placeholder="Search saved medications, categories, or notes..."
-              className="w-full pl-9 pr-3 py-2 text-xs text-slate-100 bg-slate-950 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 placeholder:text-slate-500"
+              className="w-full pl-9 pr-3 py-2 text-xs text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 placeholder:text-slate-500"
             />
           </div>
 
           {filteredDosages.length === 0 && filteredInteractions.length === 0 ? (
-            <div className="border border-dashed border-slate-700 rounded-xl p-8 text-center space-y-2 bg-slate-950/50">
+            <div className="border border-dashed border-slate-300 rounded-xl p-8 text-center space-y-2 bg-white">
               <Download className="w-6 h-6 text-slate-500 mx-auto" aria-hidden="true" />
-              <p className="text-sm font-semibold text-slate-200">No saved health records yet</p>
-              <p className="text-xs text-slate-400 max-w-sm mx-auto">
+              <p className="text-sm font-semibold text-slate-700">No saved health records yet</p>
+              <p className="text-xs text-slate-500 max-w-sm mx-auto">
                 Run a dosage verification or drug interaction check and click &ldquo;Save Record&rdquo;
                 to build your downloadable personal medical history.
               </p>
@@ -585,18 +585,18 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
               {(historyFilter === 'all' || historyFilter === 'dosage') &&
                 filteredDosages.length > 0 && (
                   <div className="space-y-2">
-                    <h3 className="text-xs font-semibold text-slate-400">Dosage Verifications</h3>
-                    <ul className="divide-y divide-slate-800 border border-slate-800 rounded-xl overflow-hidden">
+                    <h3 className="text-xs font-semibold text-slate-500">Dosage Verifications</h3>
+                    <ul className="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden">
                       {filteredDosages.map((rec) => (
-                        <li key={rec.id} className="p-4 bg-slate-950/75 space-y-2">
+                        <li key={rec.id} className="p-4 bg-white space-y-2">
                           <div className="flex items-start justify-between gap-3">
                             <div>
-                              <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400">
-                                <span className="font-semibold text-teal-400">{rec.drugCategory}</span>
+                              <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
+                                <span className="font-semibold text-teal-700">{rec.drugCategory}</span>
                                 {rec.sexDisplay && (
                                   <>
                                     <span aria-hidden="true">·</span>
-                                    <span className="text-fuchsia-300 font-medium">
+                                    <span className="text-teal-700 font-medium">
                                       Sex: {rec.sexDisplay}
                                     </span>
                                   </>
@@ -608,7 +608,7 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
                                 <span aria-hidden="true">·</span>
                                 <span>{new Date(rec.createdAt).toLocaleDateString()}</span>
                               </div>
-                              <p className="text-sm font-bold text-slate-100 mt-0.5">
+                              <p className="text-sm font-bold text-slate-900 mt-0.5">
                                 {rec.medicationName}
                               </p>
                             </div>
@@ -616,34 +616,34 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
                               type="button"
                               onClick={() => void deleteDosageRecord(rec.id)}
                               aria-label={`Delete dosage record for ${rec.medicationName}`}
-                              className="p-1.5 text-slate-400 hover:text-rose-400 rounded"
+                              className="p-1.5 text-slate-500 hover:text-rose-700 rounded"
                             >
                               <Trash2 className="w-4 h-4" />
                             </button>
                           </div>
 
-                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-slate-200 bg-slate-900/90 border border-slate-800 rounded-lg p-3">
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-slate-700 bg-white border border-slate-200 rounded-lg p-3">
                             <div>
-                              <span className="block text-[11px] text-slate-400 mb-0.5">Dose</span>
+                              <span className="block text-[11px] text-slate-500 mb-0.5">Dose</span>
                               <span
                                 className={
                                   rec.verificationStatus === 'contraindicated'
-                                    ? 'font-semibold text-rose-400'
-                                    : 'font-mono tabular-nums font-semibold text-slate-100'
+                                    ? 'font-semibold text-rose-700'
+                                    : 'font-mono tabular-nums font-semibold text-slate-900'
                                 }
                               >
                                 {rec.recommendedDose}
                               </span>
                             </div>
                             <div>
-                              <span className="block text-[11px] text-slate-400 mb-0.5">Frequency</span>
-                              <span className="font-mono tabular-nums font-medium text-slate-200">
+                              <span className="block text-[11px] text-slate-500 mb-0.5">Frequency</span>
+                              <span className="font-mono tabular-nums font-medium text-slate-700">
                                 {rec.frequency}
                               </span>
                             </div>
                             <div>
-                              <span className="block text-[11px] text-slate-400 mb-0.5">Max Daily</span>
-                              <span className="font-mono tabular-nums font-medium text-slate-200">
+                              <span className="block text-[11px] text-slate-500 mb-0.5">Max Daily</span>
+                              <span className="font-mono tabular-nums font-medium text-slate-700">
                                 {rec.maxDailyLimit}
                               </span>
                             </div>
@@ -653,24 +653,24 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
                             <span
                               className={`font-semibold ${
                                 rec.allergyStatus === 'critical'
-                                  ? 'text-rose-400'
+                                  ? 'text-rose-700'
                                   : rec.allergyStatus === 'caution'
-                                    ? 'text-amber-400'
-                                    : 'text-emerald-400'
+                                    ? 'text-amber-700'
+                                    : 'text-emerald-700'
                               }`}
                             >
                               Allergy: {rec.allergyStatus.toUpperCase()}
                             </span>
-                            <span aria-hidden="true" className="text-slate-600">
+                            <span aria-hidden="true" className="text-slate-500">
                               ·
                             </span>
                             <span
                               className={`font-semibold ${
                                 rec.verificationStatus === 'contraindicated'
-                                  ? 'text-rose-400'
+                                  ? 'text-rose-700'
                                   : rec.verificationStatus === 'caution'
-                                    ? 'text-amber-400'
-                                    : 'text-emerald-400'
+                                    ? 'text-amber-700'
+                                    : 'text-emerald-700'
                               }`}
                             >
                               Protocol: {rec.verificationStatus.toUpperCase()}
@@ -685,22 +685,22 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
               {(historyFilter === 'all' || historyFilter === 'interactions') &&
                 filteredInteractions.length > 0 && (
                   <div className="space-y-2">
-                    <h3 className="text-xs font-semibold text-slate-400">
+                    <h3 className="text-xs font-semibold text-slate-500">
                       Drug-to-Drug Interaction Reports
                     </h3>
-                    <ul className="divide-y divide-slate-800 border border-slate-800 rounded-xl overflow-hidden">
+                    <ul className="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden">
                       {filteredInteractions.map((rec) => (
-                        <li key={rec.id} className="p-4 bg-slate-950/75 space-y-1.5">
+                        <li key={rec.id} className="p-4 bg-white space-y-1.5">
                           <div className="flex items-start justify-between gap-3">
                             <div>
-                              <div className="flex items-center gap-2 text-xs text-slate-400">
+                              <div className="flex items-center gap-2 text-xs text-slate-500">
                                 <span
                                   className={`font-semibold uppercase ${
                                     rec.overallSeverity === 'major'
-                                      ? 'text-rose-400'
+                                      ? 'text-rose-700'
                                       : rec.overallSeverity === 'moderate'
-                                        ? 'text-amber-400'
-                                        : 'text-emerald-400'
+                                        ? 'text-amber-700'
+                                        : 'text-emerald-700'
                                   }`}
                                 >
                                   Severity: {rec.overallSeverity}
@@ -708,7 +708,7 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
                                 <span aria-hidden="true">·</span>
                                 <span>{new Date(rec.createdAt).toLocaleDateString()}</span>
                               </div>
-                              <p className="text-sm font-bold text-slate-100 mt-0.5">
+                              <p className="text-sm font-bold text-slate-900 mt-0.5">
                                 {rec.medications.join(' + ')}
                               </p>
                             </div>
@@ -716,12 +716,12 @@ export function HealthRecords({ onPrintFullRecord }: HealthRecordsProps) {
                               type="button"
                               onClick={() => void deleteInteractionRecord(rec.id)}
                               aria-label={`Delete interaction report for ${rec.medications.join(' and ')}`}
-                              className="p-1.5 text-slate-400 hover:text-rose-400 rounded"
+                              className="p-1.5 text-slate-500 hover:text-rose-700 rounded"
                             >
                               <Trash2 className="w-4 h-4" />
                             </button>
                           </div>
-                          <p className="text-xs text-slate-300 leading-relaxed">{rec.summary}</p>
+                          <p className="text-xs text-slate-500 leading-relaxed">{rec.summary}</p>
                         </li>
                       ))}
                     </ul>

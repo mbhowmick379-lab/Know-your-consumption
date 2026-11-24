@@ -32,13 +32,13 @@ export class ErrorBoundary extends React.Component<{ children: React.ReactNode }
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6">
-          <div className="max-w-md w-full bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-4">
-            <div className="flex items-center gap-3 text-rose-400">
+        <div className="min-h-screen bg-white flex items-center justify-center p-6">
+          <div className="max-w-md w-full bg-white border border-slate-200 rounded-xl p-6 space-y-4">
+            <div className="flex items-center gap-3 text-rose-700">
               <ShieldAlert className="w-5 h-5 shrink-0" aria-hidden="true" />
-              <h1 className="text-base font-semibold text-slate-100">Something interrupted your session</h1>
+              <h1 className="text-base font-semibold text-slate-900">Something interrupted your session</h1>
             </div>
-            <p className="text-sm text-slate-300 leading-relaxed">{this.state.message}</p>
+            <p className="text-sm text-slate-500 leading-relaxed">{this.state.message}</p>
             <button
               type="button"
               onClick={() => {

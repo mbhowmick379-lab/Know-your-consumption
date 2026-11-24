@@ -266,22 +266,22 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
     <div
       className={`rounded-xl border p-3.5 space-y-3 ${
         mode === 'multi'
-          ? 'bg-slate-950/75 border-fuchsia-500/35'
-          : 'bg-slate-950/75 border-cyan-500/35'
+          ? 'bg-white border-teal-200'
+          : 'bg-white border-teal-200'
       }`}
     >
       <div className="space-y-2.5">
         <div className="min-w-0">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-slate-100">
+          <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900">
             <ScanLine
               className={`w-3.5 h-3.5 shrink-0 ${
-                mode === 'multi' ? 'text-fuchsia-400' : 'text-cyan-400'
+                mode === 'multi' ? 'text-teal-700' : 'text-teal-700'
               }`}
               aria-hidden="true"
             />
             <span>Scan Medicine Strip or Bottle Photo</span>
           </div>
-          <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">{helperSubtitle}</p>
+          <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">{helperSubtitle}</p>
         </div>
 
         <div className="grid grid-cols-2 gap-2">
@@ -292,7 +292,7 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
               setScanError(null);
               setCameraOpen(true);
             }}
-            className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-bold text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 rounded-lg shadow-xs transition-all disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-bold text-white bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-500 hover:to-blue-500 rounded-lg shadow-xs transition-all disabled:opacity-50"
           >
             <Camera className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
             <span>Camera Capture</span>
@@ -302,7 +302,7 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
             type="button"
             disabled={scanning}
             onClick={() => uploadInputRef.current?.click()}
-            className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-bold text-white bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 rounded-lg shadow-xs transition-all disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-bold text-white bg-gradient-to-r from-sky-600 to-teal-600 hover:from-sky-500 hover:to-teal-500 rounded-lg shadow-xs transition-all disabled:opacity-50"
           >
             <ImagePlus className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
             <span>Upload Image</span>
@@ -334,21 +334,21 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
         <div
           role="status"
           aria-live="polite"
-          className="flex items-center gap-3 p-2.5 rounded-lg bg-cyan-950/40 border border-cyan-500/35"
+          className="flex items-center gap-3 p-2.5 rounded-lg bg-teal-50 border border-teal-200"
         >
           {previewUrl && (
             <img
               src={previewUrl}
               alt="Scanned medicine preview"
-              className="w-12 h-12 rounded-lg object-cover border border-slate-700 shrink-0"
+              className="w-12 h-12 rounded-lg object-cover border border-slate-300 shrink-0"
             />
           )}
           <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-2 text-xs font-bold text-cyan-200">
+            <div className="flex items-center gap-2 text-xs font-bold text-teal-800">
               <Loader2 className="w-3.5 h-3.5 animate-spin shrink-0" aria-hidden="true" />
               Reading brand name, active compositions &amp; strengths…
             </div>
-            <p className="text-[11px] text-slate-400 mt-0.5">
+            <p className="text-[11px] text-slate-500 mt-0.5">
               Analyzing printed ingredients and syrup concentration from your photo.
             </p>
           </div>
@@ -359,18 +359,18 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
       {scanError && !scanning && (
         <div
           role="alert"
-          className="flex items-start gap-2.5 p-2.5 rounded-lg bg-rose-950/40 border border-rose-500/40 text-xs text-rose-200"
+          className="flex items-start gap-2.5 p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-xs text-rose-800"
         >
-          <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" aria-hidden="true" />
+          <AlertCircle className="w-4 h-4 text-rose-700 shrink-0 mt-0.5" aria-hidden="true" />
           <div className="flex-1 min-w-0">
-            <p className="font-semibold text-rose-100">Could not extract composition</p>
-            <p className="text-[11px] text-rose-200/90 mt-0.5">{scanError}</p>
+            <p className="font-semibold text-rose-900">Could not extract composition</p>
+            <p className="text-[11px] text-rose-800 mt-0.5">{scanError}</p>
           </div>
           <button
             type="button"
             onClick={clearScanState}
             aria-label="Dismiss scan error"
-            className="p-1 text-rose-300 hover:text-white"
+            className="p-1 text-rose-700 hover:text-slate-900"
           >
             <X className="w-3.5 h-3.5" />
           </button>
@@ -379,18 +379,18 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
 
       {/* Extracted Composition Confirmation Banner */}
       {lastExtracted && !scanning && (
-        <div className="p-3 rounded-lg bg-emerald-950/35 border border-emerald-500/40 space-y-2">
+        <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200 space-y-2">
           <div className="flex items-start gap-2.5">
             {previewUrl && (
               <img
                 src={previewUrl}
                 alt="Scanned medicine label thumbnail"
-                className="w-12 h-12 rounded-lg object-cover border border-emerald-500/40 shrink-0"
+                className="w-12 h-12 rounded-lg object-cover border border-emerald-200 shrink-0"
               />
             )}
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between gap-2">
-                <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-300">
+                <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700">
                   <CheckCircle2 className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                   {lastExtracted.compositions.length > 0
                     ? `Detected ${lastExtracted.compositions.length} Composition${
@@ -402,7 +402,7 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
                   type="button"
                   onClick={clearScanState}
                   aria-label="Clear scanned medicine preview"
-                  className="text-[11px] font-medium text-slate-400 hover:text-slate-100 inline-flex items-center gap-1"
+                  className="text-[11px] font-medium text-slate-500 hover:text-slate-900 inline-flex items-center gap-1"
                 >
                   <X className="w-3 h-3" />
                   Clear
@@ -410,10 +410,10 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
               </div>
 
               {lastExtracted.brandName && (
-                <p className="text-xs font-semibold text-slate-100 mt-0.5">
-                  Brand: <span className="text-teal-300">{lastExtracted.brandName}</span>
+                <p className="text-xs font-semibold text-slate-900 mt-0.5">
+                  Brand: <span className="text-teal-700">{lastExtracted.brandName}</span>
                   {lastExtracted.dosageForm ? (
-                    <span className="text-slate-400 font-normal"> · {lastExtracted.dosageForm}</span>
+                    <span className="text-slate-500 font-normal"> · {lastExtracted.dosageForm}</span>
                   ) : null}
                 </p>
               )}
@@ -423,11 +423,11 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
                   {lastExtracted.compositions.map((comp, i) => (
                     <li
                       key={`${comp.name}-${i}`}
-                      className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-slate-900/90 border border-emerald-500/35 text-emerald-100"
+                      className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-white border border-emerald-200 text-emerald-900"
                     >
                       {comp.name}
                       {comp.strength ? (
-                        <span className="text-amber-300 font-mono ml-1">{comp.strength}</span>
+                        <span className="text-amber-700 font-mono ml-1">{comp.strength}</span>
                       ) : null}
                     </li>
                   ))}
@@ -435,14 +435,14 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
               )}
 
               {lastExtracted.liquidStrengthMg && lastExtracted.liquidPerMl && (
-                <p className="text-[11px] text-cyan-300 font-medium mt-1">
+                <p className="text-[11px] text-teal-700 font-medium mt-1">
                   Auto-filled liquid bottle strength: {lastExtracted.liquidStrengthMg} mg /{' '}
                   {lastExtracted.liquidPerMl} mL
                 </p>
               )}
 
               {lastExtracted.extractedSummary && (
-                <p className="text-[11px] text-slate-300 mt-1 leading-snug">
+                <p className="text-[11px] text-slate-500 mt-1 leading-snug">
                   {lastExtracted.extractedSummary}
                 </p>
               )}
@@ -452,21 +452,21 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
           {mode === 'single' &&
             lastExtracted.compositions.length >= 2 &&
             onSwitchToMultiWithExtracted && (
-              <div className="pt-1.5 border-t border-emerald-500/25 flex items-center justify-between gap-2">
-                <span className="text-[11px] text-fuchsia-200">
+              <div className="pt-1.5 border-t border-emerald-200 flex items-center justify-between gap-2">
+                <span className="text-[11px] text-teal-800">
                   Multiple active ingredients detected on this label.
                 </span>
                 <button
                   type="button"
                   onClick={() => onSwitchToMultiWithExtracted(lastExtracted)}
-                  className="px-2.5 py-1 text-[11px] font-bold text-white bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 rounded-md shrink-0"
+                  className="px-2.5 py-1 text-[11px] font-bold text-white bg-gradient-to-r from-sky-600 to-teal-600 hover:from-sky-500 hover:to-teal-500 rounded-md shrink-0"
                 >
                   Open in Multi-Composition ({lastExtracted.compositions.length})
                 </button>
               </div>
             )}
 
-          <p className="text-[10px] text-amber-200/90">
+          <p className="text-[10px] text-amber-800">
             Always verify the extracted ingredient names and mg strengths against your physical strip
             or bottle before calculating dosage.
           </p>
@@ -479,13 +479,13 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
           role="dialog"
           aria-modal="true"
           aria-label="Camera capture for medicine strip or bottle"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white backdrop-blur-sm"
         >
-          <div className="w-full max-w-lg rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl overflow-hidden">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800">
+          <div className="w-full max-w-lg rounded-2xl bg-white border border-slate-300 shadow-2xl overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200">
               <div className="flex items-center gap-2">
-                <Camera className="w-4 h-4 text-cyan-400" aria-hidden="true" />
-                <h3 className="text-sm font-bold text-slate-100">
+                <Camera className="w-4 h-4 text-teal-700" aria-hidden="true" />
+                <h3 className="text-sm font-bold text-slate-900">
                   Capture Medicine Strip or Label
                 </h3>
               </div>
@@ -493,14 +493,14 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
                 type="button"
                 onClick={() => setCameraOpen(false)}
                 aria-label="Close camera modal"
-                className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800"
+                className="p-1.5 text-slate-500 hover:text-slate-900 rounded-lg hover:bg-slate-100"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             <div className="p-4 space-y-3">
-              <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden bg-slate-950 border border-slate-800 flex items-center justify-center">
+              <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden bg-white border border-slate-200 flex items-center justify-center">
                 {!cameraError ? (
                   <>
                     <video
@@ -511,29 +511,29 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
                       className="w-full h-full object-cover"
                     />
                     {/* Framing guide overlay */}
-                    <div className="pointer-events-none absolute inset-4 border-2 border-dashed border-cyan-400/70 rounded-xl flex items-end justify-center pb-2">
-                      <span className="px-2.5 py-1 rounded-md bg-slate-950/80 text-[11px] font-semibold text-cyan-200">
+                    <div className="pointer-events-none absolute inset-4 border-2 border-dashed border-teal-200 rounded-xl flex items-end justify-center pb-2">
+                      <span className="px-2.5 py-1 rounded-md bg-white text-[11px] font-semibold text-teal-800">
                         Align the composition / active ingredients text inside frame
                       </span>
                     </div>
                     {cameraLoading && (
-                      <div className="absolute inset-0 bg-slate-950/75 flex flex-col items-center justify-center gap-2 text-xs text-slate-200">
-                        <Loader2 className="w-5 h-5 animate-spin text-cyan-400" />
+                      <div className="absolute inset-0 bg-white flex flex-col items-center justify-center gap-2 text-xs text-slate-700">
+                        <Loader2 className="w-5 h-5 animate-spin text-teal-700" />
                         Starting camera…
                       </div>
                     )}
                   </>
                 ) : (
                   <div className="p-5 text-center space-y-3">
-                    <AlertCircle className="w-8 h-8 text-amber-400 mx-auto" aria-hidden="true" />
-                    <p className="text-xs text-slate-200 leading-relaxed max-w-sm mx-auto">
+                    <AlertCircle className="w-8 h-8 text-amber-700 mx-auto" aria-hidden="true" />
+                    <p className="text-xs text-slate-700 leading-relaxed max-w-sm mx-auto">
                       {cameraError}
                     </p>
                     <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
                       <button
                         type="button"
                         onClick={() => mobileCameraFallbackRef.current?.click()}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 rounded-lg"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-white bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-500 hover:to-blue-500 rounded-lg"
                       >
                         <Camera className="w-3.5 h-3.5" aria-hidden="true" />
                         Use Device Camera / Photo
@@ -541,7 +541,7 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
                       <button
                         type="button"
                         onClick={() => uploadInputRef.current?.click()}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-100 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-lg"
                       >
                         <ImagePlus className="w-3.5 h-3.5" aria-hidden="true" />
                         Browse Image File
@@ -559,7 +559,7 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
                       onClick={() =>
                         setFacingMode((prev) => (prev === 'environment' ? 'user' : 'environment'))
                       }
-                      className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg"
+                      className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-lg"
                     >
                       <SwitchCamera className="w-3.5 h-3.5" aria-hidden="true" />
                       Flip Camera
@@ -569,7 +569,7 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
                     <button
                       type="button"
                       onClick={() => startCameraStream(facingMode)}
-                      className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg"
+                      className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-lg"
                     >
                       <RefreshCw className="w-3.5 h-3.5" aria-hidden="true" />
                       Retry Camera
@@ -581,7 +581,7 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
                   <button
                     type="button"
                     onClick={() => setCameraOpen(false)}
-                    className="px-3.5 py-2 text-xs font-semibold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg"
+                    className="px-3.5 py-2 text-xs font-semibold text-slate-500 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-lg"
                   >
                     Cancel
                   </button>
@@ -590,7 +590,7 @@ export const MedicineImageScanner: React.FC<MedicineImageScannerProps> = ({
                       type="button"
                       disabled={cameraLoading}
                       onClick={handleCaptureFrame}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-600 hover:from-teal-400 hover:via-cyan-400 hover:to-blue-500 rounded-lg shadow-sm disabled:opacity-50"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-gradient-to-r from-teal-500 via-teal-500 to-blue-600 hover:from-teal-400 hover:via-teal-400 hover:to-blue-500 rounded-lg shadow-sm disabled:opacity-50"
                     >
                       <Camera className="w-3.5 h-3.5" aria-hidden="true" />
                       Capture &amp; Extract

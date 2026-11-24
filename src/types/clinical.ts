@@ -7,6 +7,7 @@ export type VerificationStatus = 'verified' | 'caution' | 'contraindicated';
 export type InteractionSeverity = 'none' | 'minor' | 'moderate' | 'major';
 
 export type AppSection =
+  | 'home'
   | 'dosage'
   | 'ml-calculator'
   | 'vitals'

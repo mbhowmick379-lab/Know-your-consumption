@@ -1,38 +1,38 @@
 import { useState } from 'react';
-import { ShieldCheck } from 'lucide-react';
+import { AlertTriangle, Bot, ShieldCheck, Stethoscope } from 'lucide-react';
 
 const SAFETY_IMAGE_PATH = '/src/assets/images/patient_safety_care_1795065406105.jpg';
 
 const VERIFICATION_STEPS = [
   {
     number: '01',
-    title: 'Live Internet Clinical Cross-Verification (FDA, NIH & Web)',
+    title: 'Live checks against public drug data (FDA, NIH & web)',
     description:
-      'During every dosage or drug interaction lookup, Know Your Consumption(KYC) connects live over the internet to the U.S. FDA OpenFDA Official Drug Label database, the NIH National Library of Medicine RxNorm registry, and real-time Google Search clinical grounding so results reflect up-to-date prescribing guidelines with clickable citations.',
+      'During every dosage or drug interaction lookup, DoseSafe connects live to the U.S. FDA OpenFDA drug label database, the NIH National Library of Medicine RxNorm registry, and real-time Google Search grounding, and shows clickable citations for the sources it used.',
   },
   {
     number: '02',
-    title: 'Brand & Generic Drug Identity Resolution',
+    title: 'Brand and generic name recognition',
     description:
-      'Whether a patient types a commercial brand name (such as Augmentin, Calpol, Dolo 650, Azithral, Zithromax, Advil, Disprin, or Lipitor) or a generic active ingredient, Know Your Consumption(KYC) automatically resolves it to the exact generic pharmacology before running safety rules.',
+      'Whether you type a brand name (such as Augmentin, Calpol, Dolo 650, Azithral, Zithromax, Advil, Disprin or Lipitor) or a generic ingredient, DoseSafe resolves it to the generic medicine before running safety rules.',
   },
   {
     number: '03',
-    title: 'Sex-Specific (Male/Female) & Age-Band Clinical Protections',
+    title: 'Age and sex-specific protections',
     description:
-      'Every lookup evaluates patient sex (Male or Female) alongside age in years or months — flagging sex-specific FDA dose ceilings (such as lower female dosing for zolpidem), reproductive-age teratogen precautions, hormonal contraceptive interactions, Reye syndrome risks (aspirin under 18), infant NSAID restrictions, and Beers Criteria considerations for older adults (65+).',
+      'Every lookup considers sex and age in years or months, flagging sex-specific FDA dose limits (such as lower female dosing for zolpidem), pregnancy precautions, contraceptive interactions, Reye syndrome risk (aspirin under 18), infant NSAID restrictions and Beers Criteria considerations for adults 65+.',
   },
   {
     number: '04',
-    title: 'Optional Weight Precision, Daily Ceilings & Exact mL Volume',
+    title: 'Optional weight, daily limits and exact mL volume',
     description:
-      'Weight is always optional so adults can verify standard dosing quickly. When weight is entered (in kg or lbs), Know Your Consumption(KYC) verifies unit plausibility against age and computes weight-based mg/kg/day guidance capped strictly at the maximum safe daily ceiling — plus exact mL liquid volumes from mg per 5 mL or 10 mL bottles.',
+      'Weight is optional so adults can check standard dosing quickly. When entered (kg or lbs), DoseSafe checks it makes sense for the age, calculates mg/kg/day guidance capped at the maximum daily limit, and converts to exact mL from your bottle strength.',
   },
   {
     number: '05',
-    title: 'Direct & Cross-Reactivity Allergy Screening & Private Records',
+    title: 'Allergy screening and private records',
     description:
-      'Documented patient allergies are screened immediately against exact drug names, resolved brand names, and chemical families (Penicillin/Beta-Lactam, Sulfa, NSAIDs, Macrolides, Fluoroquinolones). Signed-in patient profiles and health records are isolated under owner-only database rules, with SHA-256 portable JSON downloads and local WHO/CDC rabies vaccination date planning.',
+      'Your allergies are checked against the medicine name, brand name and related medicine families (Penicillin/Beta-Lactam, Sulfa, NSAIDs, Macrolides, Fluoroquinolones). Signed-in records are restricted to the account owner, with SHA-256 checksummed JSON downloads and rabies vaccine date planning.',
   },
 ];
 
@@ -40,82 +40,118 @@ export function SafetyProtocol() {
   const [imgFailed, setImgFailed] = useState(false);
 
   return (
-    <div className="space-y-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch pb-8 border-b border-slate-800">
+    <div className="space-y-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
         <div className="lg:col-span-7 flex flex-col justify-center space-y-4">
-          <p className="text-xs font-semibold text-amber-400">
-            Know Your Consumption(KYC) · Live Clinical Standards &amp; Privacy
-          </p>
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-50 text-balance">
-            How our live internet &amp; automated safety verification protects every lookup
+          <p className="text-sm font-semibold text-teal-700">How DoseSafe works</p>
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 text-balance">
+            How our automated safety checks work
           </h1>
-          <p className="text-[15px] text-slate-300 leading-relaxed max-w-2xl">
-            Know Your Consumption(KYC) layers deterministic sex, age, weight, and allergy safety
-            rules on top of live U.S. FDA OpenFDA drug labels, NIH RxNorm records, and web-grounded
-            medical AI aligned with FDA prescribing guidelines, AAP, IDSA, WHO, and BNF standards.
+          <p className="text-base text-slate-600 leading-relaxed max-w-2xl">
+            DoseSafe combines fixed safety rules for age, sex, weight and allergies with live public
+            drug label data and AI summaries that reference FDA prescribing information and guidance
+            from organisations such as the AAP, IDSA, WHO and BNF.
           </p>
-          <div className="pt-2 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-medium text-teal-300">
-            <span>Live U.S. FDA Labels</span>
-            <span>NIH RxNorm API</span>
-            <span>AAP &amp; IDSA Guidelines</span>
-            <span>WHO &amp; BNF Standards</span>
+          <div className="pt-1 flex flex-wrap gap-2">
+            {['FDA drug labels', 'NIH RxNorm', 'AAP & IDSA guidance', 'WHO & BNF references'].map((t) => (
+              <span
+                key={t}
+                className="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-700"
+              >
+                {t}
+              </span>
+            ))}
           </div>
         </div>
 
         <div className="lg:col-span-5">
           {!imgFailed ? (
-            <div className="h-full min-h-[240px] rounded-xl overflow-hidden border border-slate-800 bg-slate-900">
+            <div className="h-full min-h-[240px] rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm">
               <img
                 src={SAFETY_IMAGE_PATH}
-                alt="Frosted pharmacy vials and stainless steel measuring spoon on stone"
+                alt="Pharmacy vials and a stainless steel measuring spoon"
                 referrerPolicy="no-referrer"
                 onError={() => setImgFailed(true)}
-                className="w-full h-full object-cover opacity-90"
+                className="w-full h-full object-cover"
               />
             </div>
           ) : (
-            <div className="h-full min-h-[240px] rounded-xl border border-slate-800 bg-slate-900 flex items-center justify-center">
-              <ShieldCheck className="w-12 h-12 text-teal-400/70" aria-hidden="true" />
+            <div className="h-full min-h-[240px] rounded-2xl border border-slate-200 bg-teal-50 flex items-center justify-center">
+              <ShieldCheck className="w-12 h-12 text-teal-600" aria-hidden="true" />
             </div>
           )}
         </div>
       </div>
 
-      <section aria-label="Five-stage automated verification protocol" className="space-y-4">
-        <h2 className="text-xl font-bold text-slate-50">Five-Stage Live Automated Verification</h2>
-        <div className="divide-y divide-slate-800 border border-slate-800 rounded-xl bg-slate-900/90 overflow-hidden">
-          {VERIFICATION_STEPS.map((step) => (
-            <div
-              key={step.number}
-              className="p-6 grid grid-cols-1 md:grid-cols-12 gap-4 items-start"
-            >
-              <div className="md:col-span-4 flex items-baseline gap-3">
-                <span className="font-mono text-sm font-bold text-teal-400 tabular-nums">
-                  {step.number}.
-                </span>
-                <h3 className="text-sm font-bold text-slate-100">{step.title}</h3>
-              </div>
-              <p className="md:col-span-8 text-sm text-slate-300 leading-relaxed">
-                {step.description}
-              </p>
-            </div>
-          ))}
+      <section aria-labelledby="who-decides" className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <h2 id="who-decides" className="sr-only">Automated results versus professional approval</h2>
+        <div className="flex gap-4 p-5 rounded-2xl bg-white border border-sky-100 shadow-sm">
+          <span className="inline-flex items-center justify-center w-11 h-11 shrink-0 rounded-xl bg-sky-50 text-sky-700">
+            <Bot className="w-5 h-5" aria-hidden="true" />
+          </span>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-wide text-sky-700">Automated result</p>
+            <p className="mt-1 font-bold text-slate-900">What DoseSafe does</p>
+            <p className="mt-1 text-sm text-slate-600 leading-relaxed">
+              Software-generated dose estimates, allergy flags and interaction warnings. Useful for
+              awareness, but they can be incomplete or wrong.
+            </p>
+          </div>
+        </div>
+        <div className="flex gap-4 p-5 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+          <span className="inline-flex items-center justify-center w-11 h-11 shrink-0 rounded-xl bg-emerald-50 text-emerald-700">
+            <Stethoscope className="w-5 h-5" aria-hidden="true" />
+          </span>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-wide text-emerald-700">Professional approval</p>
+            <p className="mt-1 font-bold text-slate-900">What your doctor or pharmacist does</p>
+            <p className="mt-1 text-sm text-slate-600 leading-relaxed">
+              Reviews your full health history and approves the actual prescription and dose. Always
+              follow their advice over any automated result.
+            </p>
+          </div>
         </div>
       </section>
 
+      <section aria-labelledby="steps-heading" className="space-y-4">
+        <h2 id="steps-heading" className="text-xl font-bold text-slate-900">
+          The five automated checks
+        </h2>
+        <ol className="grid grid-cols-1 gap-3">
+          {VERIFICATION_STEPS.map((step) => (
+            <li
+              key={step.number}
+              className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 items-start"
+            >
+              <div className="md:col-span-4 flex items-start gap-3">
+                <span className="inline-flex items-center justify-center w-9 h-9 shrink-0 rounded-lg bg-teal-50 font-mono text-sm font-bold text-teal-700 tabular-nums">
+                  {step.number}
+                </span>
+                <h3 className="pt-1.5 text-[15px] font-bold text-slate-900">{step.title}</h3>
+              </div>
+              <p className="md:col-span-8 text-sm text-slate-600 leading-relaxed">{step.description}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
       <section
-        aria-label="Important patient medical notice"
-        className="bg-amber-950/40 border border-amber-500/40 rounded-xl p-6 space-y-2"
+        aria-labelledby="notice-heading"
+        className="flex gap-4 bg-amber-50 border border-amber-200 rounded-2xl p-5 sm:p-6"
       >
-        <h2 className="text-sm font-bold text-amber-200">Important Medical Notice for Patients</h2>
-        <p className="text-sm text-amber-100/90 leading-relaxed">
-          Know Your Consumption(KYC) is an educational safety and continuity-of-care companion for
-          patients. Individual doses can vary based on kidney function, liver health, pregnancy,
-          infection severity, and lab cultures. Never start, stop, or alter a prescribed antibiotic
-          or medication without confirming with your physician or licensed pharmacist. In a medical
-          emergency (such as trouble breathing, throat swelling, or severe allergic reaction), call
-          emergency services immediately.
-        </p>
+        <AlertTriangle className="w-5 h-5 mt-0.5 shrink-0 text-amber-600" aria-hidden="true" />
+        <div className="space-y-2">
+          <h2 id="notice-heading" className="text-sm font-bold text-amber-900">
+            Important medical notice
+          </h2>
+          <p className="text-sm text-amber-900/90 leading-relaxed">
+            DoseSafe is an educational safety companion. Doses can vary with kidney function, liver
+            health, pregnancy, infection severity and lab results. Never start, stop or change a
+            prescribed medicine without confirming with your doctor or licensed pharmacist. In a
+            medical emergency (such as trouble breathing, throat swelling or a severe allergic
+            reaction), call emergency services immediately.
+          </p>
+        </div>
       </section>
     </div>
   );
